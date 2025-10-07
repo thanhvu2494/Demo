@@ -1,3 +1,28 @@
+# CodeShare - AI-Powered Code Snippet Sharing Platform
+
+A modern web application for sharing code snippets with automatic complexity analysis and AI-powered explanations using Google's Gemini API.
+
+## Features
+
+- 📝 **Share Code Snippets** - Post and share code in multiple programming languages
+- 🤖 **AI Explanations** - Get detailed explanations of code using Gemini AI
+- 📊 **Complexity Analysis** - Automatic Big O notation estimation
+- 🏷️ **Tag System** - Organize snippets with tags
+- 👤 **User Profiles** - View snippets by author
+- 🎨 **Syntax Highlighting** - Beautiful code display with Prism.js
+- 📱 **Responsive Design** - Works on all devices
+
+## Tech Stack
+
+- **Framework:** Next.js 15.5.4 with App Router
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS 4.0
+- **Syntax Highlighting:** Prism.js
+- **AI:** Google Gemini API
+- **Build Tool:** Turbopack
+
+## Project Structure
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
