@@ -9,7 +9,8 @@ export const INITIAL_SNIPPETS: Snippet[] = [
     code: `def find_max(numbers):\n    max_num = float("-inf")\n    for num in numbers:\n        if num > max_num:\n            max_num = num\n    return max_num`,
     language: 'python',
     tags: ['array', 'iteration', 'max-value'],
-    complexity: { notation: 'O(n)', className: 'On' }
+    complexity: { notation: 'O(n)', className: 'linear' },
+    createdAt: '2025-01-01T00:00:00.000Z'
   },
   {
     id: 2,
@@ -18,7 +19,8 @@ export const INITIAL_SNIPPETS: Snippet[] = [
     code: 'console.log("Hello, World!");',
     language: 'javascript',
     tags: ['hello-world', 'basic'],
-    complexity: { notation: 'O(1)', className: 'O1' }
+    complexity: { notation: 'O(1)', className: 'constant' },
+    createdAt: '2025-01-02T00:00:00.000Z'
   },
   {
     id: 3,
@@ -27,7 +29,8 @@ export const INITIAL_SNIPPETS: Snippet[] = [
     code: 'const [count, setCount] = useState(0);',
     language: 'javascript',
     tags: ['react', 'hooks', 'state'],
-    complexity: { notation: 'O(1)', className: 'O1' }
+    complexity: { notation: 'O(1)', className: 'constant' },
+    createdAt: '2025-01-03T00:00:00.000Z'
   }
 ];
 

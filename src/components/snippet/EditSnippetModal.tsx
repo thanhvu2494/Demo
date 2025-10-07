@@ -9,6 +9,10 @@ interface EditSnippetModalProps {
   onUpdate: (snippet: Snippet) => void;
 }
 
+type FormData = Omit<Snippet, 'tags'> & {
+  tags: string[] | string;
+};
+
 export const EditSnippetModal: React.FC<EditSnippetModalProps> = ({
   snippet,
   isOpen,
@@ -16,7 +20,7 @@ export const EditSnippetModal: React.FC<EditSnippetModalProps> = ({
   onUpdate
 }) => {
   const t = useTranslations();
-  const [formData, setFormData] = useState(snippet);
+  const [formData, setFormData] = useState<FormData>(snippet);
 
   useEffect(() => {
     setFormData(snippet);
@@ -31,11 +35,19 @@ export const EditSnippetModal: React.FC<EditSnippetModalProps> = ({
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    
+    let processedTags: string[];
+    if (Array.isArray(formData.tags)) {
+      processedTags = formData.tags;
+    } else if (typeof formData.tags === 'string') {
+      processedTags = formData.tags.split(',').map(tag => tag.trim()).filter(Boolean);
+    } else {
+      processedTags = [];
+    }
+    
     onUpdate({
       ...formData,
-      tags: Array.isArray(formData.tags)
-        ? formData.tags
-        : formData.tags.split(',').map(tag => tag.trim())
+      tags: processedTags
     });
   };
 

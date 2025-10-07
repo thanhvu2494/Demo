@@ -1,9 +1,9 @@
 
 import React from 'react';
-import { Complexity } from '@/types';
+import { ComplexityInfo } from '@/types';
 
 interface ComplexityBadgeProps {
-  complexity: Complexity;
+  complexity: ComplexityInfo;
 }
 
 export const ComplexityBadge: React.FC<ComplexityBadgeProps> = ({ complexity }) => {
