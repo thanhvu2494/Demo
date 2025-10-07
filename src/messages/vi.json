@@ -1,0 +1,75 @@
+
+{
+  "common": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "cancel": "Hủy",
+    "save": "Lưu thay đổi",
+    "delete": "Xóa",
+    "edit": "Sửa",
+    "copy": "Sao chép",
+    "copied": "Đã sao chép!",
+    "explain": "Giải thích bằng AI",
+    "author": "Tác giả",
+    "language": "Ngôn ngữ",
+    "tags": "Thẻ",
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công"
+  },
+  "header": {
+    "title": "CodeShare",
+    "subtitle": "Chia sẻ code, ước tính độ phức tạp và giải thích bằng AI."
+  },
+  "auth": {
+    "loginTitle": "Đăng nhập / Đăng ký",
+    "emailLabel": "Địa chỉ Email",
+    "passwordLabel": "Mật khẩu",
+    "continue": "Tiếp tục",
+    "pleaseLogin": "Vui lòng đăng nhập để chia sẻ snippet.",
+    "loginSuccess": "Đăng nhập thành công!",
+    "logoutSuccess": "Đăng xuất thành công!"
+  },
+  "snippet": {
+    "yourCode": "Code Snippet của bạn",
+    "topics": "Chủ đề / Thẻ",
+    "analyzeShare": "Chia sẻ Snippet",
+    "untitled": "Snippet chưa đặt tên",
+    "editSnippet": "Chỉnh sửa Snippet",
+    "title": "Tiêu đề",
+    "addSuccess": "Đã thêm snippet thành công!",
+    "updateSuccess": "Đã cập nhật snippet thành công!",
+    "deleteSuccess": "Đã xóa snippet thành công!",
+    "deleteConfirm": "Bạn có chắc chắn muốn xóa snippet này?"
+  },
+  "page": {
+    "snippetsFound": "Tìm thấy {count} snippet{plural}",
+    "snippetsByAuthor": "Snippets của {author}",
+    "noSnippets": "Không tìm thấy snippet nào",
+    "home": "Trang chủ",
+    "profile": "Hồ sơ",
+    "tags": "Thẻ"
+  },
+  "languages": {
+    "javascript": "JavaScript",
+    "python": "Python",
+    "java": "Java",
+    "typescript": "TypeScript",
+    "cpp": "C++",
+    "csharp": "C#",
+    "go": "Go",
+    "rust": "Rust",
+    "php": "PHP",
+    "ruby": "Ruby"
+  },
+  "complexity": {
+    "constant": "Thời gian hằng số",
+    "logarithmic": "Thời gian logarit",
+    "linear": "Thời gian tuyến tính",
+    "linearithmic": "Thời gian tuyến tính logarit",
+    "quadratic": "Thời gian bậc hai",
+    "cubic": "Thời gian bậc ba",
+    "exponential": "Thời gian mũ",
+    "factorial": "Thời gian giai thừa"
+  }
+}

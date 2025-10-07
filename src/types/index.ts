@@ -1,25 +1,42 @@
 
 export interface User {
+  id: number;
   email: string;
+  name: string;
 }
 
 export interface Snippet {
   id: number;
-  author: string;
-  title: string;
+  title?: string;
   code: string;
   language: string;
   tags: string[];
-  complexity: Complexity;
+  author: string;
+  createdAt: string;
+  updatedAt?: string;
+  complexity: {
+    notation: string;
+    className: string;
+  };
+  explanation?: string;
 }
 
-export interface Complexity {
+export interface ComplexityInfo {
   notation: string;
   className: string;
+  description?: string;
+}
+
+export type ViewType = 'home' | 'tag' | 'profile' | 'detail';
+
+export interface ToastMessage {
+  message: string;
+  type: 'success' | 'error' | 'info';
+  isVisible: boolean;
 }
 
 export interface Route {
-  view: 'home' | 'snippet' | 'tag' | 'profile';
+  view: ViewType;
   params: Record<string, string>;
 }
 

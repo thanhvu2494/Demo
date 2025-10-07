@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { Snippet, User } from '@/types';
 import { PageHeader } from '../layout/PageHeader';
 import { SnippetList } from '../snippet/SnippetList';
@@ -19,20 +20,33 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   onEdit,
   onDelete
 }) => {
-  const userSnippets = allSnippets.filter(snippet => snippet.author === authorEmail);
+  const t = useTranslations('page');
+  
+  const userSnippets = allSnippets.filter(
+    snippet => snippet.author === authorEmail
+  );
 
   return (
     <div>
       <PageHeader
-        title={`Profile: ${authorEmail}`}
-        subtitle={`${userSnippets.length} snippet${userSnippets.length !== 1 ? 's' : ''} shared`}
+        title={t('snippetsByAuthor', { author: authorEmail })}
+        subtitle={t('snippetsFound', { 
+          count: userSnippets.length, 
+          plural: userSnippets.length !== 1 ? 's' : '' 
+        })}
       />
-      <SnippetList
-        snippets={userSnippets}
-        user={user}
-        onEdit={onEdit}
-        onDelete={onDelete}
-      />
+      {userSnippets.length > 0 ? (
+        <SnippetList
+          snippets={userSnippets}
+          user={user}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+      ) : (
+        <div className="text-center py-12">
+          <p className="text-gray-400 text-lg">{t('noSnippets')}</p>
+        </div>
+      )}
     </div>
   );
 };

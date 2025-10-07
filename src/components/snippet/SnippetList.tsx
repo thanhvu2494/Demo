@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslations } from 'next-intl';
 import { Snippet, User } from '@/types';
 import { SnippetCard } from './SnippetCard';
 
@@ -15,17 +16,19 @@ export const SnippetList: React.FC<SnippetListProps> = ({
   onEdit,
   onDelete
 }) => {
+  const t = useTranslations('page');
+
   if (snippets.length === 0) {
     return (
-      <div className="text-center py-16 bg-gray-800 rounded-2xl">
-        <p className="text-gray-400">No snippets found.</p>
+      <div className="text-center py-12">
+        <p className="text-gray-400 text-lg">{t('noSnippets')}</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-8">
-      {snippets.map(snippet => (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {snippets.map((snippet) => (
         <SnippetCard
           key={snippet.id}
           snippet={snippet}

@@ -1,0 +1,75 @@
+
+{
+  "common": {
+    "login": "Login",
+    "logout": "Logout",
+    "cancel": "Cancel",
+    "save": "Save Changes",
+    "delete": "Delete",
+    "edit": "Edit",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "explain": "Explain with AI",
+    "author": "Author",
+    "language": "Language",
+    "tags": "Tags",
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success"
+  },
+  "header": {
+    "title": "CodeShare",
+    "subtitle": "Share snippets, get complexity estimates, and AI-powered explanations."
+  },
+  "auth": {
+    "loginTitle": "Login / Sign Up",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "continue": "Continue",
+    "pleaseLogin": "Please log in to share a snippet.",
+    "loginSuccess": "Successfully logged in!",
+    "logoutSuccess": "Successfully logged out!"
+  },
+  "snippet": {
+    "yourCode": "Your Code Snippet",
+    "topics": "Topics / Tags",
+    "analyzeShare": "Share Snippet",
+    "untitled": "Untitled Snippet",
+    "editSnippet": "Edit Snippet",
+    "title": "Title",
+    "addSuccess": "Snippet added successfully!",
+    "updateSuccess": "Snippet updated successfully!",
+    "deleteSuccess": "Snippet deleted successfully!",
+    "deleteConfirm": "Are you sure you want to delete this snippet?"
+  },
+  "page": {
+    "snippetsFound": "{count} snippet{plural} found",
+    "snippetsByAuthor": "Snippets by {author}",
+    "noSnippets": "No snippets found",
+    "home": "Home",
+    "profile": "Profile",
+    "tags": "Tags"
+  },
+  "languages": {
+    "javascript": "JavaScript",
+    "python": "Python",
+    "java": "Java",
+    "typescript": "TypeScript",
+    "cpp": "C++",
+    "csharp": "C#",
+    "go": "Go",
+    "rust": "Rust",
+    "php": "PHP",
+    "ruby": "Ruby"
+  },
+  "complexity": {
+    "constant": "Constant Time",
+    "logarithmic": "Logarithmic Time",
+    "linear": "Linear Time",
+    "linearithmic": "Linearithmic Time",
+    "quadratic": "Quadratic Time",
+    "cubic": "Cubic Time",
+    "exponential": "Exponential Time",
+    "factorial": "Factorial Time"
+  }
+}

@@ -1,129 +1,119 @@
 
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import React, { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { User } from '@/types';
-import { LANGUAGES } from '@/constants/snippets';
-import { GeminiService } from '@/services/gemini.service';
 
 interface SnippetFormProps {
-  onAddSnippet: (data: { title: string; code: string; language: string; tags: string[] }) => void;
+  onAddSnippet: (snippet: any) => void;
   user: User | null;
 }
 
 export const SnippetForm: React.FC<SnippetFormProps> = ({ onAddSnippet, user }) => {
-  const [title, setTitle] = useState('');
+  const t = useTranslations();
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState('javascript');
   const [tags, setTags] = useState('');
-  const [isLoadingTags, setIsLoadingTags] = useState(false);
+  const [title, setTitle] = useState('');
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user) {
-      alert('Please login to share a snippet.');
-      return;
-    }
-    if (!code.trim()) {
-      alert('Code cannot be empty.');
-      return;
-    }
+    if (!code.trim() || !user) return;
 
-    const tagsArray = tags.split(',').map(tag => tag.trim()).filter(tag => tag);
-    onAddSnippet({ title, code, language, tags: tagsArray });
-    
-    // Reset form
-    setTitle('');
+    onAddSnippet({
+      title: title || t('snippet.untitled'),
+      code,
+      language,
+      tags: tags.split(',').map(tag => tag.trim()).filter(tag => tag)
+    });
+
     setCode('');
     setLanguage('javascript');
     setTags('');
+    setTitle('');
   };
 
   return (
-    <div className="bg-gray-800 p-8 rounded-2xl shadow-lg mb-12">
-      <h2 className="text-2xl font-bold text-white mb-6">Share a New Snippet</h2>
-      
+    <div className="bg-gray-800 p-6 rounded-2xl shadow-lg mb-12 relative">
+      {!user && (
+        <div className="absolute inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center rounded-2xl z-10">
+          <p className="text-white text-lg font-semibold">
+            {t('auth.pleaseLogin')}
+          </p>
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label
-            htmlFor="title"
-            className="block text-sm font-medium text-gray-300 mb-2"
-          >
-            Title (Optional)
+          <label htmlFor="title-input" className="block text-sm font-medium text-gray-300 mb-2">
+            {t('snippet.title')}
           </label>
           <input
             type="text"
-            id="title"
-            className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="e.g., Find Max Number in Array"
+            id="title-input"
+            className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={title}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
+            disabled={!user}
+            placeholder={t('snippet.untitled')}
           />
         </div>
 
         <div className="mb-4">
-          <label
-            htmlFor="code"
-            className="block text-sm font-medium text-gray-300 mb-2"
-          >
-            Code
+          <label htmlFor="code-input" className="block text-sm font-medium text-gray-300 mb-2">
+            {t('snippet.yourCode')}
           </label>
           <textarea
-            id="code"
+            id="code-input"
             rows={10}
-            className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg font-mono text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            placeholder="Paste your code here..."
+            className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg font-mono text-sm text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={code}
-            onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setCode(e.target.value)}
-            required
+            onChange={(e) => setCode(e.target.value)}
+            disabled={!user}
           />
         </div>
 
         <div className="grid md:grid-cols-2 gap-4 mb-6">
           <div>
-            <label
-              htmlFor="language"
-              className="block text-sm font-medium text-gray-300 mb-2"
-            >
-              Language
+            <label htmlFor="language-select" className="block text-sm font-medium text-gray-300 mb-2">
+              {t('common.language')}
             </label>
             <select
-              id="language"
-              className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              id="language-select"
+              className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={language}
-              onChange={(e: ChangeEvent<HTMLSelectElement>) => setLanguage(e.target.value)}
+              onChange={(e) => setLanguage(e.target.value)}
+              disabled={!user}
             >
-              {LANGUAGES.map(lang => (
-                <option key={lang.value} value={lang.value}>
-                  {lang.label}
-                </option>
-              ))}
+              <option value="javascript">{t('languages.javascript')}</option>
+              <option value="python">{t('languages.python')}</option>
+              <option value="java">{t('languages.java')}</option>
+              <option value="typescript">{t('languages.typescript')}</option>
+              <option value="cpp">{t('languages.cpp')}</option>
+              <option value="go">{t('languages.go')}</option>
             </select>
           </div>
 
           <div>
-            <label
-              htmlFor="tags"
-              className="block text-sm font-medium text-gray-300 mb-2"
-            >
-              Tags (comma-separated)
+            <label htmlFor="tags-input" className="block text-sm font-medium text-gray-300 mb-2">
+              {t('snippet.topics')}
             </label>
-            <div className="flex gap-2">
-              <input
-                type="text"
-                id="tags"
-                className="flex-1 p-3 bg-gray-900 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="e.g., array, algorithm"
-                value={tags}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setTags(e.target.value)}
-              />
-            </div>
+            <input
+              type="text"
+              id="tags-input"
+              className="w-full p-3 bg-gray-900 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+              value={tags}
+              onChange={(e) => setTags(e.target.value)}
+              disabled={!user}
+              placeholder="algorithm, data-structure"
+            />
           </div>
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition disabled:bg-gray-500"
+          disabled={!user || !code.trim()}
         >
-          Share Snippet
+          {t('snippet.analyzeShare')}
         </button>
       </form>
     </div>
