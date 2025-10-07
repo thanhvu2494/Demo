@@ -5,7 +5,6 @@ A modern Next.js application for sharing code snippets with AI-powered explanati
 ## Features
 
 - 🌐 **Multi-language Support (i18n)** - English and Vietnamese
-- 🤖 **AI-Powered Explanations** - Get detailed code explanations
 - 📊 **Complexity Analysis** - Automatic Big O notation estimation
 - 🏷️ **Tag System** - Organize snippets with tags
 - 👤 **User Profiles** - View snippets by author
