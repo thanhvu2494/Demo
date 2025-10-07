@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useSnippets } from '@/hooks/useSnippets';
 import { useRouter } from '@/hooks/useRouter';
@@ -14,6 +14,8 @@ import { TagPage } from '@/components/pages/TagPage';
 import { ProfilePage } from '@/components/pages/ProfilePage';
 
 export default function Home() {
+  const [mounted, setMounted] = useState(false);
+  
   const {
     user,
     isAuthModalOpen,
@@ -38,6 +40,10 @@ export default function Home() {
   // Trigger Prism.js syntax highlighting when snippets or route changes
   usePrism([snippets, route]);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const handleAddSnippet = (data: {
     title: string;
     code: string;
@@ -58,6 +64,14 @@ export default function Home() {
   };
 
   const renderContent = () => {
+    if (!mounted) {
+      return (
+        <div className="text-center py-16">
+          <p className="text-gray-400">Loading...</p>
+        </div>
+      );
+    }
+
     switch (route.view) {
       case 'snippet':
         return (
@@ -104,6 +118,10 @@ export default function Home() {
         );
     }
   };
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">

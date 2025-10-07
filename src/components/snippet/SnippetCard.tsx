@@ -1,5 +1,5 @@
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Snippet, User } from '@/types';
 import { ComplexityBadge } from './ComplexityBadge';
 import { SnippetActions } from './SnippetActions';
@@ -21,7 +21,12 @@ export const SnippetCard: React.FC<SnippetCardProps> = ({
   isDetailPage = false
 }) => {
   const [copyFeedback, setCopyFeedback] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const codeRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const copyToClipboard = async () => {
     if (codeRef.current) {
@@ -33,6 +38,11 @@ export const SnippetCard: React.FC<SnippetCardProps> = ({
     }
   };
 
+  // Format date only on client side to avoid hydration mismatch
+  const formattedDate = mounted 
+    ? new Date(snippet.created_at).toLocaleDateString()
+    : '';
+
   return (
     <div className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
       <div className="p-4 bg-gray-900 border-b border-gray-700 flex justify-between items-center">
@@ -41,42 +51,53 @@ export const SnippetCard: React.FC<SnippetCardProps> = ({
             {snippet.language}
           </span>
           <ComplexityBadge complexity={snippet.complexity} />
-          <div className="text-sm">
-            <span className="font-semibold text-gray-300">Author: </span>
-            <a
-              href={`#/profiles/${snippet.author}`}
-              className="text-cyan-400 cursor-pointer hover:underline"
-            >
-              {snippet.author}
-            </a>
-          </div>
+          {mounted && (
+            <div className="text-sm">
+              <span className="font-semibold text-gray-300">Author: </span>
+              <a
+                href={`#/profiles/${snippet.author}`}
+                className="text-cyan-400 cursor-pointer hover:underline"
+              >
+                {snippet.author}
+              </a>
+            </div>
+          )}
         </div>
         
-        <SnippetActions
-          snippet={snippet}
-          user={user}
-          onEdit={onEdit}
-          onDelete={onDelete}
-        />
+        {mounted && (
+          <SnippetActions
+            snippet={snippet}
+            user={user}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
+        )}
       </div>
 
       <div className="p-4">
         {!isDetailPage && snippet.title && (
-          <h3 className="text-xl font-bold text-white mb-2">
-            <a href={`#/snippets/${snippet.id}`} className="hover:underline">
-              {snippet.title}
-            </a>
-          </h3>
+          <div className="flex justify-between items-start mb-2">
+            <h3 className="text-xl font-bold text-white">
+              <a href={`#/snippets/${snippet.id}`} className="hover:underline">
+                {snippet.title}
+              </a>
+            </h3>
+            {mounted && formattedDate && (
+              <span className="text-sm text-gray-400">{formattedDate}</span>
+            )}
+          </div>
         )}
         
         <div className="relative">
-          <button
-            onClick={copyToClipboard}
-            className="absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-white text-xs font-bold py-1 px-3 rounded transition"
-            aria-label="Copy code"
-          >
-            {copyFeedback ? 'Copied!' : 'Copy'}
-          </button>
+          {mounted && (
+            <button
+              onClick={copyToClipboard}
+              className="absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-white text-xs font-bold py-1 px-3 rounded transition"
+              aria-label="Copy code"
+            >
+              {copyFeedback ? 'Copied!' : 'Copy'}
+            </button>
+          )}
           
           <pre className="!bg-transparent !p-0">
             <code

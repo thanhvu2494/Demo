@@ -1,8 +1,10 @@
 
 /**
- * Format date to readable string
+ * Format date to readable string (client-side only)
  */
 export const formatDate = (date: Date | string): string => {
+  if (typeof window === 'undefined') return '';
+  
   const d = typeof date === 'string' ? new Date(date) : date;
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
@@ -11,6 +13,16 @@ export const formatDate = (date: Date | string): string => {
     hour: '2-digit',
     minute: '2-digit'
   }).format(d);
+};
+
+/**
+ * Format date to simple string (client-side only)
+ */
+export const formatDateSimple = (date: Date | string): string => {
+  if (typeof window === 'undefined') return '';
+  
+  const d = typeof date === 'string' ? new Date(date) : date;
+  return d.toLocaleDateString();
 };
 
 /**

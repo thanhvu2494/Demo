@@ -37,24 +37,6 @@ export const SnippetForm: React.FC<SnippetFormProps> = ({ onAddSnippet, user }) 
     setTags('');
   };
 
-  const handleSuggestTags = async () => {
-    if (!code.trim()) {
-      alert('Please enter some code first.');
-      return;
-    }
-
-    setIsLoadingTags(true);
-    try {
-      const suggestedTags = await GeminiService.suggestTags(code, language);
-      setTags(suggestedTags);
-    } catch (error) {
-      console.error('Error suggesting tags:', error);
-      alert('Failed to suggest tags. Please try again.');
-    } finally {
-      setIsLoadingTags(false);
-    }
-  };
-
   return (
     <div className="bg-gray-800 p-8 rounded-2xl shadow-lg mb-12">
       <h2 className="text-2xl font-bold text-white mb-6">Share a New Snippet</h2>
@@ -133,14 +115,6 @@ export const SnippetForm: React.FC<SnippetFormProps> = ({ onAddSnippet, user }) 
                 value={tags}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => setTags(e.target.value)}
               />
-              <button
-                type="button"
-                onClick={handleSuggestTags}
-                disabled={isLoadingTags}
-                className="bg-purple-600 hover:bg-purple-700 disabled:bg-gray-600 text-white font-bold px-4 rounded-lg transition whitespace-nowrap"
-              >
-                {isLoadingTags ? 'Loading...' : 'Suggest Tags ✨'}
-              </button>
             </div>
           </div>
         </div>
